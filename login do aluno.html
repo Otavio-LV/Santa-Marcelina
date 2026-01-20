@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio | Portal do Aluno</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+
+    body { background: #f4f6f8; color: #333; }
+
+    header {
+      background: #00335b;
+      color: #fff;
+      padding: 20px 16px 0px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h1 { font-size: 18px; }
+    .user { font-size: 14px; opacity: 0.9; }
+
+    .container {
+      display: flex;
+      min-height: calc(100vh - 60px);
+    }
+
+    aside {
+      width: 260px;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      padding-top: 20px;
+    }
+
+    aside ul { list-style: none; }
+
+    aside li {
+      padding: 16px 24px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      font-size: 15px;
+    }
+
+    aside li:hover { background: #f0f0f0; }
+
+    aside li.active {
+      background: #00345b;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    main { flex: 1; padding: 0; width:100vw;}
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* Carteira Estudantil */
+    .student-card-wrapper {
+      width:100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e9eef2;
+      position: relative;
+    }
+
+    .student-card-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .swap-btn {
+      position: absolute;
+      bottom: 20px;
+      background: #1b6f5a;
+      color: #fff;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 25px;
+      margin: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .card h2 { margin-bottom: 12px; font-size: 18px; color: #0b3a5a; }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    @media (max-width: 768px) {
+      aside { display: none; }
+      header h1 { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Portal do Aluno · Santa Marcelina</h1>
+    <div class="user">Aluno: Otávio Vieira</div>
+  </header>
+  <div class="container">
+
+    <main>
+      <section id="dashboard" class="section active">
+        <div class="student-card-wrapper">
+          <img id="cardImage" src="1000253266.jpg" alt="Carteira Estudantil" />
+          <button class="swap-btn" onclick="swapImage()">Virar carteirinha</button>
+        </div>
+      </section>
+
+      <section id="sobre" class="section">
+        <div class="card profile">
+          <div class="avatar"></div>
+          <div>
+            <h2>Sobre mim</h2>
+            <p>Sou estudante e profissional em desenvolvimento, com foco em tecnologia, design e soluções digitais.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="projetos" class="section">
+        <div class="card">
+          <h2>Projetos</h2>
+          <div class="projects">
+            <div class="project">
+              <h3>Projeto 01</h3>
+              <p>Descrição do projeto, objetivo e tecnologias utilizadas.</p>
+              <a href="#">Visualizar</a>
+            </div>
+            <div class="project">
+              <h3>Projeto 02</h3>
+              <p>Descrição do projeto, objetivo e tecnologias utilizadas.</p>
+              <a href="#">Visualizar</a>
+            </div>
+            <div class="project">
+              <h3>Projeto 03</h3>
+              <p>Descrição do projeto, objetivo e tecnologias utilizadas.</p>
+              <a href="#">Visualizar</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="habilidades" class="section">
+        <div class="card">
+          <h2>Habilidades</h2>
+          <div class="skills">
+            <div class="skill">HTML</div>
+            <div class="skill">CSS</div>
+            <div class="skill">JavaScript</div>
+            <div class="skill">UI/UX</div>
+            <div class="skill">Design Responsivo</div>
+            <div class="skill">Marketing Digital</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contato" class="section">
+        <div class="card">
+          <h2>Contato</h2>
+          <p>Email: seuemail@email.com</p>
+          <p>LinkedIn / GitHub / Instagram</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    © 2026 · Portfólio acadêmico Portal do Aluno Santa Marcelina
+  </footer>
+
+  <script>
+    const items = document.querySelectorAll('aside li');
+    const sections = document.querySelectorAll('.section');
+
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        items.forEach(i => i.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+
+        item.classList.add('active');
+        document.getElementById(item.dataset.section).classList.add('active');
+      });
+    });
+
+    let currentImage = 0;
+    const images = ['1000253266.jpg', '1000251718.jpg'];
+
+    function swapImage() {
+      currentImage = currentImage === 0 ? 1 : 0;
+      document.getElementById('cardImage').src = images[currentImage];
+    }
+  </script>
+
+</body>
+</html>
